@@ -73,8 +73,8 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Rota principal para carregar a página inicial
-app.get('*', (req, res) => {
+// Rota principal compatível com o Node/Express recente
+app.get('/*', (req, res) => {
     const indexPath = fs.existsSync(path.join(publicPath, 'index.html'))
         ? path.join(publicPath, 'index.html')
         : path.join(__dirname, 'index.html');
