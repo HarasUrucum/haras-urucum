@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condomínio Haras Urucum - Portal do Morador</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 480px; text-align: center; }
+        h2 { color: #2c3e50; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #27ae60; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        button:hover { background-color: #219150; }
+        .hidden { display: none; }
+        .info-box { background: #eef9f1; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left; }
+        .btn-link { display: inline-block; padding: 10px 15px; background: #2980b9; color: white; text-decoration: none; border-radius: 6px; margin-top: 10px; text-align: center; }
+        iframe { width: 100%; height: 260px; border: none; border-radius: 8px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="loginCard">
+        <h2>Condomínio Haras Urucum</h2>
+        <p>Acesse o portal da portaria e do seu lote</p>
+        <input type="text" id="usuario" placeholder="Usuário (ex: lote01)">
+        <input type="password" id="senha" placeholder="Senha">
+        <button onclick="fazerLogin()">Entrar</button>
+        <p id="erroMsg" style="color: red; margin-top: 10px;"></p>
+    </div>
+
+    <div class="card hidden" id="painelCard">
+        <h2 id="loteTitulo">Bem-vindo</h2>
+        <p id="moradorNome"></p>
+
+        <div class="info-box">
+            <h3>🎥 Câmera ao Vivo - Portaria</h3>
+            <iframe src="http://localhost:1984/stream.html?src=portaria"></iframe>
+        </div>
+
+        <div class="info-box">
+            <h3>Leitura da Água</h3>
+            <p><strong>Consumo:</strong> <span id="leituraAgua"></span></p>
+            <div id="boxFoto"></div>
+        </div>
+
+        <div class="info-box">
+            <h3>Boleto do Mês</h3>
+            <div id="boxBoleto"></div>
+        </div>
+
+        <button onclick="sair()" style="background-color: #e74c3c; margin-top: 20px;">Sair</button>
+    </div>
+
+    <script>
+        async function fazerLogin() {
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+            const erroMsg = document.getElementById('erroMsg');
+
+            erroMsg.innerText = "";
+
+            const resposta = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario, senha })
+            });
+
+            const resultado = await resposta.json();
+
+            if (resultado.sucesso) {
+                document.getElementById('loginCard').classList.add('hidden');
+                document.getElementById('painelCard').classList.remove('hidden');
+
+                const dados = resultado.dados;
+                document.getElementById('loteTitulo').innerText = dados.lote;
+                document.getElementById('moradorNome').innerText = "Responsável: " + dados.morador;
+                document.getElementById('leituraAgua').innerText = dados.leituraAgua;
+
+                if (dados.fotoHidrometro) {
+                    document.getElementById('boxFoto').innerHTML = `<a href="${dados.fotoHidrometro}" target="_blank" class="btn-link">Ver Foto do Hidrômetro</a>`;
+                }
+
+                if (dados.boletoPdf) {
+                    document.getElementById('boxBoleto').innerHTML = `<a href="${dados.boletoPdf}" target="_blank" class="btn-link" style="background: #8e44ad;">Baixar Boleto PDF</a>`;
+                }
+            } else {
+                erroMsg.innerText = resultado.mensagem;
+            }
+        }
+
+        function sair() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
