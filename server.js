@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 
-// Procura a pasta public
+// Procura a pasta public ou a raiz
 const publicPath = fs.existsSync(path.join(__dirname, 'public')) 
     ? path.join(__dirname, 'public') 
     : __dirname;
@@ -73,8 +73,8 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Rota principal compatível com o Node/Express recente
-app.get('/*', (req, res) => {
+// Entrega o index.html para qualquer outra requisição sem usar asteriscos
+app.use((req, res) => {
     const indexPath = fs.existsSync(path.join(publicPath, 'index.html'))
         ? path.join(publicPath, 'index.html')
         : path.join(__dirname, 'index.html');
