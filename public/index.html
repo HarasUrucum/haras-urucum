@@ -3,93 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Condomínio Haras Urucum - Portal do Morador</title>
+    <title>Portal do Morador | Haras Urucum</title>
+    <!-- Fonte Google Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 480px; text-align: center; }
-        h2 { color: #2c3e50; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background-color: #27ae60; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        button:hover { background-color: #219150; }
-        .hidden { display: none; }
-        .info-box { background: #eef9f1; padding: 12px; border-radius: 6px; margin-top: 15px; text-align: left; }
-        .btn-link { display: inline-block; padding: 10px 15px; background: #2980b9; color: white; text-decoration: none; border-radius: 6px; margin-top: 10px; text-align: center; }
-        iframe { width: 100%; height: 260px; border: none; border-radius: 8px; margin-top: 10px; }
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 25px 20px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.82rem;
+            color: #555555;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            background: #f9fbfd;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: #2a5298;
+            background: #ffffff;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #27ae60 0%, #2ec76f 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.25);
+            margin-top: 15px;
+        }
+
+        .btn-boleto {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(41, 128, 185, 0.3);
+            margin-top: 8px;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .info-label {
+            font-size: 0.78rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .hidrometro-wrapper {
+            margin-bottom: 18px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .hidrometro-img {
+            width: 100%;
+            max-height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .erro {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
 
-    <div class="card" id="loginCard">
-        <h2>Condomínio Haras Urucum</h2>
-        <p>Acesse o portal da portaria e do seu lote</p>
-        <input type="text" id="usuario" placeholder="Usuário (ex: lote01)">
-        <input type="password" id="senha" placeholder="Senha">
-        <button onclick="fazerLogin()">Entrar</button>
-        <p id="erroMsg" style="color: red; margin-top: 10px;"></p>
-    </div>
-
-    <div class="card hidden" id="painelCard">
-        <h2 id="loteTitulo">Bem-vindo</h2>
-        <p id="moradorNome"></p>
-
-        <div class="info-box">
-            <h3>🎥 Câmera ao Vivo - Portaria</h3>
-            <iframe src="http://localhost:1984/stream.html?src=portaria"></iframe>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <div class="header">
+            <div class="header-icon">🏡</div>
+            <h1>Haras Urucum</h1>
+            <p>Portal de Serviços do Morador</p>
         </div>
 
-        <div class="info-box">
-            <h3>Leitura da Água</h3>
-            <p><strong>Consumo:</strong> <span id="leituraAgua"></span></p>
-            <div id="boxFoto"></div>
-        </div>
+        <div class="content">
+            <!-- Tela de Login -->
+            <div id="sec-login">
+                <div class="input-group">
+                    <label for="usuario">Utilizador / Lote</label>
+                    <input type="text" id="usuario" placeholder="Ex: lote01" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Insira a sua senha">
+                </div>
+                <button class="btn" onclick="fazerLogin()">Aceder ao Portal</button>
+                <p id="msg-erro" class="erro"></p>
+            </div>
 
-        <div class="info-box">
-            <h3>Boleto do Mês</h3>
-            <div id="boxBoleto"></div>
-        </div>
+            <!-- Painel do Morador -->
+            <div id="sec-painel" class="hidden">
+                <div class="info-card" style="background: #edf2f7; border-color: #cbd5e0;">
+                    <div class="info-label">📍 Identificação do Lote</div>
+                    <div class="info-value" id="boas-vindas">Lote --</div>
+                </div>
 
-        <button onclick="sair()" style="background-color: #e74c3c; margin-top: 20px;">Sair</button>
+                <!-- Foto do Hidrómetro (só exibe se houver link válido) -->
+                <div id="box-foto" class="hidrometro-wrapper hidden">
+                    <img id="img-foto" src="" alt="Foto do Hidrómetro" class="hidrometro-img">
+                </div>
+
+                <!-- Leitura da Água -->
+                <div class="info-card">
+                    <div class="info-label">💧 Consumo de Água Registado</div>
+                    <div class="info-value" id="val-agua">--</div>
+                </div>
+
+                <!-- Boleto do Mês -->
+                <div class="info-card">
+                    <div class="info-label">📄 Boleto do Mês</div>
+                    <div id="area-boleto">
+                        <span style="font-size:0.88rem; color:#94a3b8;">Nenhum boleto disponível no momento.</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-logout" onclick="sair()">Encerrar Sessão</button>
+            </div>
+        </div>
     </div>
 
     <script>
         async function fazerLogin() {
-            const usuario = document.getElementById('usuario').value;
-            const senha = document.getElementById('senha').value;
-            const erroMsg = document.getElementById('erroMsg');
+            const usuario = document.getElementById('usuario').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            const msgErro = document.getElementById('msg-erro');
+            
+            msgErro.innerText = '';
 
-            erroMsg.innerText = "";
+            if(!usuario || !senha) {
+                msgErro.innerText = 'Por favor, preencha utilizador e senha.';
+                return;
+            }
 
-            const resposta = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ usuario, senha })
-            });
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario, senha })
+                });
 
-            const resultado = await resposta.json();
+                const data = await res.json();
 
-            if (resultado.sucesso) {
-                document.getElementById('loginCard').classList.add('hidden');
-                document.getElementById('painelCard').classList.remove('hidden');
-
-                const dados = resultado.dados;
-                document.getElementById('loteTitulo').innerText = dados.lote;
-                document.getElementById('moradorNome').innerText = "Responsável: " + dados.morador;
-                document.getElementById('leituraAgua').innerText = dados.leituraAgua;
-
-                if (dados.fotoHidrometro) {
-                    document.getElementById('boxFoto').innerHTML = `<a href="${dados.fotoHidrometro}" target="_blank" class="btn-link">Ver Foto do Hidrômetro</a>`;
+                if(data.sucesso) {
+                    carregarPainel(data.dados);
+                } else {
+                    msgErro.innerText = data.mensagem || 'Utilizador ou senha incorretos.';
                 }
+            } catch(e) {
+                msgErro.innerText = 'Não foi possível ligar ao servidor.';
+            }
+        }
 
-                if (dados.boletoPdf) {
-                    document.getElementById('boxBoleto').innerHTML = `<a href="${dados.boletoPdf}" target="_blank" class="btn-link" style="background: #8e44ad;">Baixar Boleto PDF</a>`;
-                }
+        function carregarPainel(dados) {
+            document.getElementById('sec-login').classList.add('hidden');
+            document.getElementById('sec-painel').classList.remove('hidden');
+
+            document.getElementById('boas-vindas').innerText = `Lote ${dados.lote} • ${dados.morador}`;
+            document.getElementById('val-agua').innerText = dados.leituraAgua || 'Sem leitura registada';
+
+            // Trata Foto do Hidrómetro
+            const boxFoto = document.getElementById('box-foto');
+            const imgFoto = document.getElementById('img-foto');
+            if(dados.fotoHidrometro && dados.fotoHidrometro.startsWith('http')) {
+                imgFoto.src = dados.fotoHidrometro;
+                boxFoto.classList.remove('hidden');
             } else {
-                erroMsg.innerText = resultado.mensagem;
+                boxFoto.classList.add('hidden');
+            }
+
+            // Trata o Boleto PDF
+            const areaBoleto = document.getElementById('area-boleto');
+            if(dados.boletoPdf && dados.boletoPdf.startsWith('http')) {
+                areaBoleto.innerHTML = `<a href="${dados.boletoPdf}" target="_blank" class="btn-boleto">📥 Descarregar Boleto (PDF)</a>`;
+            } else {
+                areaBoleto.innerHTML = `<span style="font-size:0.88rem; color:#94a3b8;">Boleto indisponível no momento.</span>`;
             }
         }
 
         function sair() {
-            location.reload();
+            document.getElementById('sec-painel').classList.add('hidden');
+            document.getElementById('sec-login').classList.remove('hidden');
+            document.getElementById('usuario').value = '';
+            document.getElementById('senha').value = '';
         }
     </script>
 </body>
