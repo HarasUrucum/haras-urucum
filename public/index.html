@@ -30,7 +30,7 @@
             width: 100%;
             max-width: 420px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            position: relative;
         }
 
         .header {
@@ -38,7 +38,6 @@
             color: #ffffff;
             padding: 30px 20px;
             text-align: center;
-            position: relative;
         }
 
         .header-icon {
@@ -49,7 +48,6 @@
         .header h1 {
             font-size: 1.4rem;
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
 
         .header p {
@@ -69,7 +67,7 @@
 
         .input-group label {
             display: block;
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             color: #555555;
             margin-bottom: 6px;
             font-weight: 500;
@@ -83,7 +81,6 @@
             font-size: 0.95rem;
             outline: none;
             background: #f9fbfd;
-            transition: border-color 0.2s;
         }
 
         .input-group input:focus {
@@ -102,11 +99,6 @@
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn:active {
-            transform: scale(0.98);
         }
 
         .btn-logout {
@@ -115,21 +107,22 @@
             margin-top: 15px;
         }
 
-        .btn-boleto {
+        .btn-action {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+            padding: 12px;
+            background: #2980b9;
             color: white;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 4px 12px rgba(41, 128, 185, 0.3);
+            font-size: 0.9rem;
             margin-top: 8px;
+            border: none;
+            cursor: pointer;
         }
 
         .info-card {
@@ -141,35 +134,87 @@
             text-align: left;
         }
 
+        .info-card-avisos {
+            background: #fffbe3;
+            border: 1px solid #ffe58f;
+        }
+
         .info-label {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
             font-weight: 600;
             margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .info-value {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #1e293b;
         }
 
+        .grid-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .grid-links a {
+            background: #f1f5f9;
+            color: #334155;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #cbd5e1;
+            transition: background 0.2s;
+        }
+
+        .grid-links a:hover {
+            background: #e2e8f0;
+        }
+
+        /* Botão Flutuante do WhatsApp */
+        .btn-whats-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-decoration: none;
+            z-index: 999;
+            transition: transform 0.2s;
+        }
+
+        .btn-whats-float:active {
+            transform: scale(0.9);
+        }
+
+        .btn-whats-float svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
         .hidrometro-wrapper {
-            margin-bottom: 18px;
-            border-radius: 14px;
+            margin-bottom: 15px;
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid #e2e8f0;
-            background: #f8fafc;
         }
 
         .hidrometro-img {
             width: 100%;
-            max-height: 240px;
+            max-height: 220px;
             object-fit: cover;
             display: block;
         }
@@ -179,7 +224,6 @@
             font-size: 0.85rem;
             margin-top: 12px;
             text-align: center;
-            font-weight: 500;
         }
 
         .hidden {
@@ -189,53 +233,73 @@
 </head>
 <body>
 
+    <!-- Ícone Flutuante do WhatsApp -->
+    <a href="https://wa.me/5511943430475?text=Olá,%20sou%20morador%20do%20Haras%20Urucum%20e%20preciso%20de%20atendimento." target="_blank" class="btn-whats-float" title="Falar no WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.762.459 3.48 1.332 5.001l-1.416 5.169 5.291-1.387c1.472.802 3.13 1.224 4.78 1.225h.004c5.506 0 9.99-4.478 9.99-9.985 0-2.667-1.038-5.176-2.925-7.062a9.925 9.925 0 0 0-7.066-2.945zm0 1.768c4.528 0 8.217 3.689 8.218 8.217 0 2.196-.856 4.258-2.408 5.811-1.553 1.552-3.616 2.407-5.811 2.407h-.003c-1.396 0-2.771-.355-3.985-1.028l-.286-.159-2.962.776.79-2.887-.174-.277c-.739-1.184-1.13-2.55-1.13-3.952 0-4.528 3.689-8.218 8.218-8.218zm-2.02 4.242c-.225 0-.589.085-.898.423-.309.338-1.18 1.153-1.18 2.812 0 1.658 1.208 3.261 1.377 3.487.169.225 2.38 3.633 5.765 5.094.805.348 1.433.556 1.923.712.808.257 1.543.221 2.125.134.648-.097 1.996-.816 2.277-1.603.281-.787.281-1.462.197-1.603-.084-.141-.309-.225-.647-.394-.338-.169-1.996-.984-2.305-1.096-.309-.113-.534-.169-.759.169-.225.338-.872 1.096-1.069 1.321-.197.225-.394.253-.731.084-.338-.169-1.427-.526-2.718-1.677-1.005-.896-1.683-2.002-1.88-2.34-.197-.338-.021-.521.148-.689.152-.151.338-.394.506-.591.169-.197.225-.338.338-.562.113-.225.056-.423-.028-.591-.084-.169-.759-1.83-1.04-2.503-.273-.655-.55-.566-.759-.576l-.647-.008z"/>
+        </svg>
+    </a>
+
     <div class="container">
         <!-- Cabeçalho -->
         <div class="header">
             <div class="header-icon">🏡</div>
             <h1>Haras Urucum</h1>
-            <p>Portal de Serviços do Morador</p>
+            <p>Portal de Serviços ao Morador</p>
         </div>
 
         <div class="content">
             <!-- Tela de Login -->
             <div id="sec-login">
                 <div class="input-group">
-                    <label for="usuario">Utilizador / Lote</label>
+                    <label for="usuario">Usuário</label>
                     <input type="text" id="usuario" placeholder="Ex: lote01" autocomplete="off">
                 </div>
                 <div class="input-group">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" placeholder="Insira a sua senha">
+                    <input type="password" id="senha" placeholder="Digite sua senha">
                 </div>
-                <button class="btn" onclick="fazerLogin()">Aceder ao Portal</button>
+                <button class="btn" onclick="fazerLogin()">Acessar Portal</button>
                 <p id="msg-erro" class="erro"></p>
             </div>
 
             <!-- Painel do Morador -->
             <div id="sec-painel" class="hidden">
                 <div class="info-card" style="background: #edf2f7; border-color: #cbd5e0;">
-                    <div class="info-label">📍 Identificação do Lote</div>
                     <div class="info-value" id="boas-vindas">Lote --</div>
                 </div>
 
-                <!-- Foto do Hidrómetro (só exibe se houver link válido) -->
-                <div id="box-foto" class="hidrometro-wrapper hidden">
-                    <img id="img-foto" src="" alt="Foto do Hidrómetro" class="hidrometro-img">
+                <!-- Informativos do Condomínio -->
+                <div class="info-card info-card-avisos">
+                    <div class="info-label" style="color: #b78103;">📢 Informativos</div>
+                    <div class="aviso-texto" style="font-size:0.85rem; color:#856404;" id="txt-informativo">
+                        Seja bem-vindo ao Portal de Serviços ao Morador!
+                    </div>
                 </div>
 
-                <!-- Leitura da Água -->
+                <!-- Foto do Hidrômetro Cadastrada -->
+                <div id="box-foto" class="hidrometro-wrapper hidden">
+                    <img id="img-foto" src="" alt="Foto do Hidrômetro" class="hidrometro-img">
+                </div>
+
+                <!-- Consumo de Água -->
                 <div class="info-card">
-                    <div class="info-label">💧 Consumo de Água Registado</div>
+                    <div class="info-label">💧 Consumo de Água</div>
                     <div class="info-value" id="val-agua">--</div>
                 </div>
 
-                <!-- Boleto do Mês -->
+                <!-- Boleto -->
                 <div class="info-card">
-                    <div class="info-label">📄 Boleto do Mês</div>
+                    <div class="info-label">📄 Boleto</div>
                     <div id="area-boleto">
-                        <span style="font-size:0.88rem; color:#94a3b8;">Nenhum boleto disponível no momento.</span>
+                        <span style="font-size:0.85rem; color:#94a3b8;">Nenhum boleto disponível.</span>
                     </div>
+                </div>
+
+                <!-- Links Rápidos: Atas e Calendário -->
+                <div class="grid-links">
+                    <a id="link-atas" href="#" target="_blank">📋 Atas</a>
+                    <a id="link-calendario" href="#" target="_blank">📅 Calendário</a>
                 </div>
 
                 <button class="btn btn-logout" onclick="sair()">Encerrar Sessão</button>
@@ -252,7 +316,7 @@
             msgErro.innerText = '';
 
             if(!usuario || !senha) {
-                msgErro.innerText = 'Por favor, preencha utilizador e senha.';
+                msgErro.innerText = 'Preencha usuário e senha.';
                 return;
             }
 
@@ -268,10 +332,10 @@
                 if(data.sucesso) {
                     carregarPainel(data.dados);
                 } else {
-                    msgErro.innerText = data.mensagem || 'Utilizador ou senha incorretos.';
+                    msgErro.innerText = data.mensagem || 'Usuário ou senha incorretos.';
                 }
             } catch(e) {
-                msgErro.innerText = 'Não foi possível ligar ao servidor.';
+                msgErro.innerText = 'Erro ao conectar ao servidor.';
             }
         }
 
@@ -280,9 +344,9 @@
             document.getElementById('sec-painel').classList.remove('hidden');
 
             document.getElementById('boas-vindas').innerText = `Lote ${dados.lote} • ${dados.morador}`;
-            document.getElementById('val-agua').innerText = dados.leituraAgua || 'Sem leitura registada';
+            document.getElementById('val-agua').innerText = dados.leituraAgua || 'Sem leitura';
 
-            // Trata Foto do Hidrómetro
+            // Trata Foto do Hidrômetro
             const boxFoto = document.getElementById('box-foto');
             const imgFoto = document.getElementById('img-foto');
             if(dados.fotoHidrometro && dados.fotoHidrometro.startsWith('http')) {
@@ -292,13 +356,17 @@
                 boxFoto.classList.add('hidden');
             }
 
-            // Trata o Boleto PDF
+            // Trata Boleto
             const areaBoleto = document.getElementById('area-boleto');
             if(dados.boletoPdf && dados.boletoPdf.startsWith('http')) {
-                areaBoleto.innerHTML = `<a href="${dados.boletoPdf}" target="_blank" class="btn-boleto">📥 Descarregar Boleto (PDF)</a>`;
+                areaBoleto.innerHTML = `<a href="${dados.boletoPdf}" target="_blank" class="btn-action">📥 Baixar Boleto (PDF)</a>`;
             } else {
-                areaBoleto.innerHTML = `<span style="font-size:0.88rem; color:#94a3b8;">Boleto indisponível no momento.</span>`;
+                areaBoleto.innerHTML = `<span style="font-size:0.85rem; color:#94a3b8;">Boleto indisponível.</span>`;
             }
+
+            // Links das Atas e Calendário
+            document.getElementById('link-atas').href = dados.linkAtas || '#';
+            document.getElementById('link-calendario').href = dados.linkCalendario || '#';
         }
 
         function sair() {
