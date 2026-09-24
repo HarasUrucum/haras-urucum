@@ -6,8 +6,12 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 
-// Serve os ficheiros estáticos da pasta public
-app.use(express.static(path.join(__dirname, 'public')));
+// Procura a pasta public
+const publicPath = fs.existsSync(path.join(__dirname, 'public')) 
+    ? path.join(__dirname, 'public') 
+    : __dirname;
+
+app.use(express.static(publicPath));
 
 // ID da Planilha do Google Sheets do Condomínio Haras Urucum
 const SPREADSHEET_ID = '1ObEDH_Px_hfNpFPZtp7wDHNKpct_rfGXybN35Id2fXA';
@@ -69,12 +73,15 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Rota principal para carregar o portal (index.html)
+// Rota principal para carregar a página inicial
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    const indexPath = fs.existsSync(path.join(publicPath, 'index.html'))
+        ? path.join(publicPath, 'index.html')
+        : path.join(__dirname, 'index.html');
+    res.sendFile(indexPath);
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor do Condomínio Haras Urucum a rodar na porta ${PORT}`);
+    console.log(`Servidor a rodar na porta ${PORT}`);
 });
